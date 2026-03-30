@@ -1,58 +1,36 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { searchImages } from '../data/mockImages';
-import BottomNav from '../components/BottomNav';
 import svgPaths from '../../imports/svg-xcxhhmzk87';
+import BottomNav from '../components/BottomNav';
+import Header from '../components/Header';
+import { searchImages } from '../data/mockImages';
 
 export default function SearchScreen() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
-  
+
   const results = searchQuery.length > 0 ? searchImages(searchQuery) : [];
-  const showNoResults = searchQuery.length > 0 && results.length === 0;
+  const filteredResults = results.filter((image) => {
+    if (activeFilter === 'All' || activeFilter === 'Images') return true;
+    if (activeFilter === 'Schedules') return image.category === 'schedule';
+    if (activeFilter === 'Stops') return image.tags.some((tag) => tag.toLowerCase().includes('transit'));
+    return true;
+  });
+  const showNoResults = searchQuery.length > 0 && filteredResults.length === 0;
 
   return (
-    <div className="bg-[#f8fafc] flex flex-col min-h-screen w-full">
-      <BottomNav />
-      
-      {/* Header */}
-      <div className="flex items-center justify-between pb-[9px] pt-[16px] px-[16px] shrink-0 w-full z-[4]">
-        <div aria-hidden="true" className="absolute border-[rgba(18,109,98,0.1)] border-b border-solid left-0 right-0 pointer-events-none" />
-        
-        <button
-          onClick={() => navigate('/home')}
-          className="relative rounded-[9999px] shrink-0 size-[40px]"
-        >
-          <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
-            <div className="relative shrink-0 size-[16px]">
-              <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-                <g>
-                  <path d={svgPaths.p300a1100} fill="#126D62" />
-                </g>
-              </svg>
-            </div>
-          </div>
-        </button>
-        
-        <div className="flex-[1_0_0] min-h-px min-w-px relative">
-          <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-center relative w-full">
-            <div className="flex flex-col font-['Inter:Bold',sans-serif] font-bold h-[23px] justify-center leading-[0] not-italic relative shrink-0 text-[#0f172a] text-[18px] text-center tracking-[-0.45px] w-[214px]">
-              <p className="leading-[22.5px]">Search Results</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="relative shrink-0 size-[40px]">
-          <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-end size-full" />
-        </div>
-        
-        <button
-          onClick={() => navigate('/settings')}
-          className="relative rounded-[9999px] shrink-0"
-        >
-          <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start p-[8px] relative">
-            <div className="relative shrink-0 size-[24px]">
+    <div className="flex min-h-screen w-full flex-col bg-[#f8fafc]">
+      <Header
+        title="Search"
+        rightAction={
+          <button
+            type="button"
+            onClick={() => navigate('/settings')}
+            aria-label="Open settings"
+            className="flex size-[40px] shrink-0 items-center justify-center rounded-[9999px]"
+          >
+            <div className="relative size-[24px] shrink-0">
               <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
                 <g>
                   <path d={svgPaths.p1b1900c0} stroke="#64748B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
@@ -60,49 +38,46 @@ export default function SearchScreen() {
                 </g>
               </svg>
             </div>
-          </div>
-        </button>
-      </div>
+          </button>
+        }
+      />
 
-      {/* Search Bar */}
-      <div className="bg-white flex flex-col items-start p-[16px] shrink-0 w-full z-[3]">
-        <div className="content-stretch flex flex-col h-[48px] items-start justify-center relative shrink-0 w-full">
-          <div className="bg-[rgba(18,109,98,0)] content-stretch flex flex-[1_0_0] items-start min-h-px min-w-px p-px relative rounded-[12px] w-full">
-            <div aria-hidden="true" className="absolute border border-[rgba(18,109,98,0.5)] border-solid inset-0 pointer-events-none rounded-[12px]" />
-            
-            <div className="h-full relative shrink-0">
-              <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex h-full items-center justify-center pl-[16px] relative">
-                <div className="relative shrink-0 size-[18px]">
-                  <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 18">
-                    <g>
-                      <path d={svgPaths.p8a35e00} fill="#126D62" />
-                    </g>
-                  </svg>
-                </div>
+      <div className="w-full bg-white">
+        <div className="mx-auto flex w-full max-w-[430px] flex-col p-[16px]">
+          <div className="relative flex h-[48px] w-full items-center rounded-[12px] p-px">
+            <div aria-hidden="true" className="absolute inset-0 rounded-[12px] border border-[rgba(18,109,98,0.5)]" />
+
+            <div className="flex h-full items-center justify-center pl-[16px]">
+              <div className="relative size-[18px] shrink-0">
+                <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 18">
+                  <g>
+                    <path d={svgPaths.p8a35e00} fill="#126D62" />
+                  </g>
+                </svg>
               </div>
             </div>
-            
+
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search your Vault..."
-              className="flex-[1_0_0] h-full min-h-px min-w-px bg-transparent border-0 outline-none px-[12px] py-[13px] font-['Inter:Regular',sans-serif] font-normal text-[16px] text-[#0f172a]"
+              placeholder="Search your Vault"
+              className="h-full min-w-0 flex-[1_0_0] border-0 bg-transparent px-[12px] py-[13px] font-['Inter:Regular',sans-serif] text-[16px] font-normal text-[#0f172a] outline-none"
             />
-            
+
             {searchQuery && (
               <button
+                type="button"
                 onClick={() => setSearchQuery('')}
-                className="h-full relative shrink-0"
+                aria-label="Clear search"
+                className="flex h-full items-center justify-center pr-[12px]"
               >
-                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex h-full items-center justify-center pr-[12px] relative">
-                  <div className="relative shrink-0 size-[20px]">
-                    <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-                      <g>
-                        <path d={svgPaths.p28843fc0} fill="#126D62" fillOpacity="0.67" />
-                      </g>
-                    </svg>
-                  </div>
+                <div className="relative size-[20px] shrink-0">
+                  <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                    <g>
+                      <path d={svgPaths.p28843fc0} fill="#126D62" fillOpacity="0.67" />
+                    </g>
+                  </svg>
                 </div>
               </button>
             )}
@@ -110,81 +85,80 @@ export default function SearchScreen() {
         </div>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="h-[43px] shrink-0 w-full z-[2]">
-        <div className="overflow-clip rounded-[inherit] size-full">
-          <div className="content-stretch flex gap-[24px] items-start pb-px px-[16px] relative size-full">
+      <div className="relative h-[43px] w-full border-b border-[rgba(18,109,98,0.1)] bg-white">
+        <div className="mx-auto h-full max-w-[430px] overflow-x-auto">
+          <div className="flex h-full min-w-full gap-[24px] px-[16px]">
             {['All', 'Images', 'Schedules', 'Stops'].map((filter) => (
               <button
                 key={filter}
+                type="button"
                 onClick={() => setActiveFilter(filter)}
-                className="relative self-stretch shrink-0"
+                className="relative shrink-0 self-stretch"
               >
-                <div aria-hidden="true" className={`absolute border-b-2 border-solid inset-0 pointer-events-none ${activeFilter === filter ? 'border-[#126d62]' : 'border-[rgba(0,0,0,0)]'}`} />
-                <div className="flex flex-col items-center justify-center size-full">
-                  <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col h-full items-center justify-center pb-[14px] pt-[8px] relative">
-                    <div className={`flex flex-col font-['Inter:${activeFilter === filter ? 'Bold' : 'Medium'}',sans-serif] h-[20px] justify-center leading-[0] not-italic relative shrink-0 text-[14px] ${activeFilter === filter ? 'text-[#126d62] font-bold' : 'text-[#94a3b8] font-medium'}`}>
-                      <p className="leading-[20px]">{filter}</p>
-                    </div>
-                  </div>
+                <div
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 bottom-0 border-b-2 border-solid ${
+                    activeFilter === filter ? 'border-[#126d62]' : 'border-transparent'
+                  }`}
+                />
+                <div className="flex h-full items-center pb-[14px] pt-[8px]">
+                  <span
+                    className={`font-['Inter:Medium',sans-serif] text-[14px] ${
+                      activeFilter === filter ? 'font-bold text-[#126d62]' : 'font-medium text-[#94a3b8]'
+                    }`}
+                  >
+                    {filter}
+                  </span>
                 </div>
               </button>
             ))}
           </div>
         </div>
-        <div aria-hidden="true" className="absolute border-[rgba(18,109,98,0.1)] border-b border-solid inset-0 pointer-events-none" />
       </div>
 
-      {/* Results */}
-      <div className="flex-1 overflow-y-auto w-full pb-[120px]">
+      <div className="flex-1 overflow-y-auto pb-[120px]">
         {showNoResults ? (
-          <div className="flex flex-col items-start p-[32px] w-full z-[1]">
-            <div className="bg-[rgba(18,109,98,0.1)] relative rounded-[12px] shrink-0 w-full">
-              <div className="flex flex-col items-center justify-center size-full">
-                <div className="content-stretch flex flex-col items-center justify-center p-[32px] relative w-full">
-                  <div className="content-stretch flex flex-col h-[96px] items-start pb-[16px] relative shrink-0 w-[80px]">
-                    <div className="bg-[rgba(18,109,98,0.1)] content-stretch flex items-center justify-center relative rounded-[9999px] shrink-0 size-[80px]">
-                      <div className="h-[28.5px] relative shrink-0 w-[30px]">
-                        <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 30 28.5">
-                          <g>
-                            <path d={svgPaths.p12d27880} fill="#126D62" />
-                          </g>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="content-stretch flex flex-col items-start pt-[24px] relative shrink-0">
-                    <div className="flex flex-col font-['Inter:Bold',sans-serif] font-bold h-[28px] justify-center leading-[0] not-italic relative shrink-0 text-[#0f172a] text-[18px] text-center w-[194.78px]">
-                      <p className="leading-[28px]">No more results found</p>
+          <div className="mx-auto flex w-full max-w-[430px] flex-col p-[32px]">
+            <div className="w-full rounded-[12px] bg-[rgba(18,109,98,0.1)]">
+              <div className="flex flex-col items-center justify-center p-[32px]">
+                <div className="pb-[16px]">
+                  <div className="flex size-[80px] items-center justify-center rounded-[9999px] bg-[rgba(18,109,98,0.1)]">
+                    <div className="relative h-[28.5px] w-[30px] shrink-0">
+                      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 30 28.5">
+                        <g>
+                          <path d={svgPaths.p12d27880} fill="#126D62" />
+                        </g>
+                      </svg>
                     </div>
                   </div>
                 </div>
+                <p className="text-center font-['Inter:Bold',sans-serif] text-[18px] font-bold text-[#0f172a]">
+                  No results found
+                </p>
+                <p className="mt-[8px] max-w-[240px] text-center font-['Inter:Regular',sans-serif] text-[14px] text-[#64748b]">
+                  Try a different keyword or switch filters.
+                </p>
               </div>
             </div>
           </div>
-        ) : results.length > 0 ? (
-          <div className="grid grid-cols-2 gap-[16px] p-[16px] max-w-[430px] mx-auto w-full">
-            {results.map((image) => (
+        ) : filteredResults.length > 0 ? (
+          <div className="mx-auto grid w-full max-w-[430px] grid-cols-2 gap-[16px] p-[16px]">
+            {filteredResults.map((image) => (
               <button
                 key={image.id}
+                type="button"
                 onClick={() => navigate(`/image/${image.id}`)}
-                className="bg-white rounded-[12px] overflow-hidden shadow-sm"
+                className="overflow-hidden rounded-[12px] bg-white text-left shadow-sm"
               >
-                <div className="aspect-square relative">
-                  <img
-                    src={image.thumbnail}
-                    alt={image.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+                <div className="relative aspect-square">
+                  <img src={image.thumbnail} alt={image.title} className="absolute inset-0 h-full w-full object-cover" />
                 </div>
                 <div className="p-[12px]">
-                  <h3 className="font-['Inter:Bold',sans-serif] font-bold text-[14px] text-[#0f172a] mb-[4px] truncate">
+                  <h3 className="mb-[4px] truncate font-['Inter:Bold',sans-serif] text-[14px] font-bold text-[#0f172a]">
                     Matched: {image.title}
                   </h3>
-                  <p className="font-['Inter:Regular',sans-serif] text-[12px] text-[#64748b] truncate">
-                    {image.tags[0]}
-                  </p>
-                  <p className="font-['Inter:Regular',sans-serif] text-[10px] text-[#94a3b8] mt-[4px]">
+                  <p className="truncate font-['Inter:Regular',sans-serif] text-[12px] text-[#64748b]">{image.tags[0]}</p>
+                  <p className="mt-[4px] font-['Inter:Regular',sans-serif] text-[10px] text-[#94a3b8]">
                     Updated {image.date}
                   </p>
                 </div>
@@ -192,13 +166,15 @@ export default function SearchScreen() {
             ))}
           </div>
         ) : (
-          <div className="flex items-center justify-center h-[300px] text-[#94a3b8]">
-            <p className="font-['Inter:Regular',sans-serif] text-[16px]">
-              Start typing to search your Vault
+          <div className="mx-auto flex h-[300px] max-w-[430px] items-center justify-center px-[24px] text-center">
+            <p className="font-['Inter:Regular',sans-serif] text-[16px] text-[#94a3b8]">
+              Start typing to search your Vault.
             </p>
           </div>
         )}
       </div>
+
+      <BottomNav />
     </div>
   );
 }

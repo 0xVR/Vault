@@ -1225,7 +1225,6 @@ function Main() {
 export default function HomeDashboardMichelle() {
   return (
     <div className="bg-[#f7f5f8] content-stretch flex flex-col isolate items-start relative size-full" data-name="Home Dashboard - Michelle">
-      <Nav />
       <Header />
       <Main />
     </div>

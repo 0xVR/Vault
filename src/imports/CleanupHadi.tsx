@@ -697,7 +697,6 @@ function Main() {
 export default function CleanupHadi() {
   return (
     <div className="bg-[#f8fafc] content-stretch flex flex-col isolate items-start relative size-full" data-name="Cleanup - Hadi">
-      <Nav />
       <Header />
       <Main />
     </div>
