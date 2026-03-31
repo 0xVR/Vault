@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router';
 import svgPaths from '../../imports/svg-xcxhhmzk87';
 import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';
@@ -7,8 +7,27 @@ import { searchImages } from '../data/mockImages';
 
 export default function SearchScreen() {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialQuery = searchParams.get('q') ?? '';
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [activeFilter, setActiveFilter] = useState('All');
+
+  useEffect(() => {
+    setSearchQuery(initialQuery);
+  }, [initialQuery]);
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+
+    const nextParams = new URLSearchParams(searchParams);
+    if (value.trim()) {
+      nextParams.set('q', value);
+    } else {
+      nextParams.delete('q');
+    }
+
+    setSearchParams(nextParams, { replace: true });
+  };
 
   const results = searchQuery.length > 0 ? searchImages(searchQuery) : [];
   const filteredResults = results.filter((image) => {
@@ -60,7 +79,7 @@ export default function SearchScreen() {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               placeholder="Search your Vault"
               className="h-full min-w-0 flex-[1_0_0] border-0 bg-transparent px-[12px] py-[13px] font-['Inter:Regular',sans-serif] text-[16px] font-normal text-[#0f172a] outline-none"
             />
@@ -68,7 +87,7 @@ export default function SearchScreen() {
             {searchQuery && (
               <button
                 type="button"
-                onClick={() => setSearchQuery('')}
+                onClick={() => handleSearchChange('')}
                 aria-label="Clear search"
                 className="flex h-full items-center justify-center pr-[12px]"
               >

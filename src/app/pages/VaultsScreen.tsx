@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router';
 import svgPaths from '../../imports/svg-xcxhhmzk87';
 import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';
@@ -7,7 +7,7 @@ import { mockImages } from '../data/mockImages';
 
 export default function VaultsScreen() {
   const navigate = useNavigate();
-  const [selectedVault, setSelectedVault] = useState<string>('all');
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const vaults = {
     all: mockImages,
@@ -15,6 +15,23 @@ export default function VaultsScreen() {
     schedules: mockImages.filter((img) => img.category === 'schedule'),
     events: mockImages.filter((img) => img.category === 'event'),
     whiteboards: mockImages.filter((img) => img.category === 'whiteboard'),
+  };
+
+  const requestedVault = searchParams.get('vault');
+  const selectedVaultKey = requestedVault && requestedVault in vaults ? requestedVault : 'all';
+  const [selectedVault, setSelectedVault] = useState<string>(selectedVaultKey);
+
+  useEffect(() => {
+    setSelectedVault(selectedVaultKey);
+  }, [selectedVaultKey]);
+
+  const handleSelectVault = (vaultKey: string) => {
+    setSelectedVault(vaultKey);
+    if (vaultKey === 'all') {
+      setSearchParams({}, { replace: true });
+    } else {
+      setSearchParams({ vault: vaultKey }, { replace: true });
+    }
   };
 
   const currentImages = vaults[selectedVault as keyof typeof vaults] || mockImages;
@@ -55,7 +72,7 @@ export default function VaultsScreen() {
             <button
               key={vault.key}
               type="button"
-              onClick={() => setSelectedVault(vault.key)}
+              onClick={() => handleSelectVault(vault.key)}
               className={`whitespace-nowrap rounded-[20px] px-[16px] py-[8px] ${
                 selectedVault === vault.key ? 'bg-[#126d62] text-white' : 'bg-[#f1f5f9] text-[#64748b]'
               }`}

@@ -264,7 +264,7 @@ function Header() {
 function Heading1() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Heading 2">
-      <div className="flex flex-col font-['Nimbus_Sans:Bold',sans-serif] h-[20px] justify-center leading-[0] not-italic relative shrink-0 text-[#126d62] text-[14px] tracking-[0.7px] uppercase w-[135.39px]">
+      <div className="flex flex-col font-['Inter:Semi_Bold',sans-serif] h-[20px] justify-center leading-[0] not-italic relative shrink-0 text-[#126d62] text-[14px] tracking-[0.7px] uppercase w-[135.39px]">
         <p className="leading-[20px]">Storage Status</p>
       </div>
     </div>
@@ -273,8 +273,8 @@ function Heading1() {
 
 function Overlay() {
   return (
-    <div className="bg-[rgba(59,130,246,0.1)] content-stretch flex flex-col items-start px-[8px] py-[4px] relative rounded-[9999px] shrink-0" data-name="Overlay">
-      <div className="flex flex-col font-['Nimbus_Sans:Regular',sans-serif] h-[16px] justify-center leading-[0] not-italic relative shrink-0 text-[#126d62] text-[12px] w-[46.28px]">
+    <div className="bg-[rgba(59,130,246,0.1)] content-stretch flex flex-col items-center px-[10px] py-[4px] relative rounded-[9999px] shrink-0" data-name="Overlay">
+      <div className="flex flex-col font-['Inter:Semi_Bold',sans-serif] h-[16px] justify-center leading-[0] not-italic relative shrink-0 text-[#126d62] text-[12px] whitespace-nowrap w-auto">
         <p className="leading-[16px]">85% Full</p>
       </div>
     </div>
@@ -301,13 +301,13 @@ function Background() {
 function Paragraph() {
   return (
     <div className="absolute content-stretch flex items-center leading-[0] left-[21px] not-italic right-[21px] top-[79px]" data-name="Paragraph">
-      <div className="flex flex-col font-['Nimbus_Sans:Regular',sans-serif] h-[16px] justify-center relative shrink-0 text-[#94a3b8] text-[12px] w-[129.73px]">
+      <div className="flex flex-col font-['Inter:Regular',sans-serif] h-[16px] justify-center relative shrink-0 text-[#94a3b8] text-[12px] w-[129.73px]">
         <p className="leading-[16px]">{`You can free up approx. `}</p>
       </div>
-      <div className="flex flex-col font-['Nimbus_Sans:Bold',sans-serif] h-[20px] justify-center relative shrink-0 text-[#334155] text-[14px] w-[44.36px]">
+      <div className="flex flex-col font-['Inter:Bold',sans-serif] h-[20px] justify-center relative shrink-0 text-[#334155] text-[14px] w-[44.36px]">
         <p className="leading-[20px]">2.4 GB</p>
       </div>
-      <div className="flex flex-col font-['Nimbus_Sans:Regular',sans-serif] h-[16px] justify-center relative shrink-0 text-[#94a3b8] text-[12px] w-[34.66px]">
+      <div className="flex flex-col font-['Inter:Regular',sans-serif] h-[16px] justify-center relative shrink-0 text-[#94a3b8] text-[12px] w-[34.66px]">
         <p className="leading-[16px]">{` today.`}</p>
       </div>
     </div>
@@ -328,7 +328,7 @@ function SectionStatusOverview() {
 function Heading2() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Heading 2">
-      <div className="flex flex-col font-['Nimbus_Sans:Bold',sans-serif] h-[28px] justify-center leading-[0] not-italic relative shrink-0 text-[#1e293b] text-[18px] w-[188.97px]">
+      <div className="flex flex-col font-['Inter:Bold',sans-serif] h-[28px] justify-center leading-[0] not-italic relative shrink-0 text-[#1e293b] text-[18px] w-[188.97px]">
         <p className="leading-[28px]">Cleaning Suggestions</p>
       </div>
     </div>
@@ -338,7 +338,7 @@ function Heading2() {
 function Container16() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Container">
-      <div className="flex flex-col font-['Nimbus_Sans:Regular',sans-serif] h-[20px] justify-center leading-[0] not-italic relative shrink-0 text-[#126d62] text-[14px] w-[52.8px]">
+      <div className="flex flex-col font-['Inter:Medium',sans-serif] h-[20px] justify-center leading-[0] not-italic relative shrink-0 text-[#126d62] text-[14px] w-[52.8px]">
         <p className="leading-[20px]">Clear All</p>
       </div>
     </div>
@@ -527,7 +527,7 @@ function ScreenshotPreviewContainer() {
 function Button3() {
   return (
     <div className="bg-[#f1f5f9] col-1 content-stretch flex flex-col items-center justify-center justify-self-start px-[56.64px] py-[12px] relative rounded-[16px] row-1 self-start shrink-0" data-name="Button">
-      <div className="flex flex-col font-['Nimbus_Sans:Bold',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[#334155] text-[16px] text-center w-[38.72px]">
+      <div className="flex flex-col font-['Inter:Semi_Bold',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[#334155] text-[16px] text-center w-[38.72px]">
         <p className="leading-[24px]">Keep</p>
       </div>
     </div>
@@ -538,7 +538,7 @@ function Button4() {
   return (
     <div className="bg-[#ef4444] col-2 content-stretch flex flex-col items-center justify-center justify-self-start pl-[51.95px] pr-[51.96px] py-[12px] relative rounded-[16px] row-1 self-start shrink-0" data-name="Button">
       <div className="absolute bg-[rgba(255,255,255,0)] inset-0 rounded-[16px] shadow-[0px_10px_15px_-3px_rgba(239,68,68,0.2),0px_4px_6px_-4px_rgba(239,68,68,0.2)]" data-name="Button:shadow" />
-      <div className="flex flex-col font-['Nimbus_Sans:Bold',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-center text-white w-[48.09px]">
+      <div className="flex flex-col font-['Inter:Semi_Bold',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-center text-white w-[48.09px]">
         <p className="leading-[24px]">Delete</p>
       </div>
     </div>
@@ -600,7 +600,7 @@ function Background2() {
 function Heading4() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Heading 4">
-      <div className="flex flex-col font-['Nimbus_Sans:Bold',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[#334155] text-[16px] w-[152.42px]">
+      <div className="flex flex-col font-['Inter:Bold',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[#334155] text-[16px] w-[172px]">
         <p className="leading-[24px]">12 Duplicate Photos</p>
       </div>
     </div>
@@ -610,7 +610,7 @@ function Heading4() {
 function Container26() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Container">
-      <div className="flex flex-col font-['Nimbus_Sans:Regular',sans-serif] h-[16px] justify-center leading-[0] not-italic relative shrink-0 text-[#64748b] text-[12px] w-[88.83px]">
+      <div className="flex flex-col font-['Inter:Regular',sans-serif] h-[16px] justify-center leading-[0] not-italic relative shrink-0 text-[#64748b] text-[12px] whitespace-nowrap w-[104px]">
         <p className="leading-[16px]">Free up 45.2 MB</p>
       </div>
     </div>
@@ -619,7 +619,7 @@ function Container26() {
 
 function Container25() {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0 w-[152.42px]" data-name="Container">
+    <div className="content-stretch flex flex-col items-start relative shrink-0 w-[172px]" data-name="Container">
       <Heading4 />
       <Container26 />
     </div>

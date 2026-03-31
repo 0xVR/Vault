@@ -110,8 +110,10 @@ function OverlayBorderOverlayBlur1() {
   return (
     <div className="backdrop-blur-[6px] bg-[rgba(0,0,0,0.4)] content-stretch flex flex-col items-center p-[13px] relative rounded-[9999px] shrink-0" data-name="Overlay+Border+OverlayBlur">
       <div aria-hidden="true" className="absolute border border-[rgba(255,255,255,0.1)] border-solid inset-0 pointer-events-none rounded-[9999px]" />
-      <div className="flex flex-col font-['Material_Symbols_Outlined:Thin',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[24px] text-center text-white w-[24.103px]">
-        <p className="leading-[24px]">flash_auto</p>
+      <div className="relative h-[24px] w-[24px] shrink-0">
+        <svg className="absolute block size-full" fill="none" viewBox="0 0 24 24">
+          <path d="M13 2L6 13h5l-1 9 8-12h-5l0-8z" fill="white" fillOpacity="0.92" />
+        </svg>
       </div>
     </div>
   );
@@ -129,8 +131,8 @@ function OverlayBorderOverlayBlur2() {
   return (
     <div className="backdrop-blur-[6px] bg-[rgba(0,0,0,0.4)] content-stretch flex flex-col items-center p-[13px] relative rounded-[9999px] shrink-0" data-name="Overlay+Border+OverlayBlur">
       <div aria-hidden="true" className="absolute border border-[rgba(255,255,255,0.1)] border-solid inset-0 pointer-events-none rounded-[9999px]" />
-      <div className="flex flex-col font-['Material_Symbols_Outlined:Thin',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[24px] text-center text-white w-[24.103px]">
-        <p className="leading-[24px]">hd</p>
+      <div className="flex h-[24px] items-center justify-center rounded-[6px] border border-white/70 px-[4px] text-[11px] font-bold tracking-[0.08em] text-white">
+        HD
       </div>
     </div>
   );
@@ -148,8 +150,10 @@ function OverlayBorderOverlayBlur3() {
   return (
     <div className="backdrop-blur-[6px] bg-[rgba(0,0,0,0.4)] content-stretch flex flex-col items-center p-[13px] relative rounded-[9999px] shrink-0" data-name="Overlay+Border+OverlayBlur">
       <div aria-hidden="true" className="absolute border border-[rgba(255,255,255,0.1)] border-solid inset-0 pointer-events-none rounded-[9999px]" />
-      <div className="flex flex-col font-['Material_Symbols_Outlined:Thin',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[24px] text-center text-white w-[24.103px]">
-        <p className="leading-[24px]">aspect_ratio</p>
+      <div className="relative h-[24px] w-[24px] shrink-0">
+        <svg className="absolute block size-full" fill="none" viewBox="0 0 24 24">
+          <path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+        </svg>
       </div>
     </div>
   );

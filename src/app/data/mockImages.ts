@@ -11,7 +11,8 @@ export interface VaultImage {
   category: string;
 }
 
-const assetUrl = (fileName: string) => new URL(`../../assets/${fileName}`, import.meta.url).href;
+export const assetUrl = (fileName: string) => new URL(`../../assets/${fileName}`, import.meta.url).href;
+export const cameraPreviewImage = assetUrl('f541a30f3d1b90c2056cbf467e70db360274ee5b.png');
 
 export const mockImages: VaultImage[] = [
   {

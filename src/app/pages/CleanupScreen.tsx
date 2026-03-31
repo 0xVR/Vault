@@ -25,6 +25,12 @@ export default function CleanupScreen() {
       <FigmaWrapper>
         <CleanupHadi />
       </FigmaWrapper>
+      <button
+        type="button"
+        aria-label="Open settings"
+        onClick={() => navigate('/settings')}
+        className="absolute right-[12px] top-[12px] z-[20] size-[48px] rounded-[9999px]"
+      />
       <BottomNav />
     </div>
   );

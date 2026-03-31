@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import Header from '../components/Header';
+import { cameraPreviewImage } from '../data/mockImages';
 
 export default function AnnotateScreen() {
   const navigate = useNavigate();
@@ -42,17 +43,8 @@ export default function AnnotateScreen() {
 
       <div className="flex flex-1 flex-col overflow-y-auto">
         <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col">
-          <div className="flex aspect-square w-full items-center justify-center bg-[#94a3b8]">
-            <div className="text-center text-white">
-              <div className="mb-[16px]">
-                <svg className="mx-auto h-[64px] w-[64px]" fill="none" viewBox="0 0 64 64">
-                  <rect x="8" y="8" width="48" height="48" rx="4" stroke="white" strokeWidth="2" fill="none" />
-                  <circle cx="24" cy="24" r="4" fill="white" />
-                  <path d="M8 48L24 32L40 48M32 40L48 24L56 32V56H8V48" stroke="white" strokeWidth="2" fill="none" />
-                </svg>
-              </div>
-              <p className="font-['Inter:Medium',sans-serif] text-[16px]">Captured Image</p>
-            </div>
+          <div className="aspect-square w-full overflow-hidden bg-[#94a3b8]">
+            <img src={cameraPreviewImage} alt="Captured preview" className="h-full w-full object-cover" />
           </div>
 
           <div className="px-[16px] pt-[16px]">
