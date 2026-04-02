@@ -241,7 +241,11 @@ function Svg() {
 
 function Button2() {
   return (
-    <div className="content-stretch flex flex-col items-start p-[8px] relative rounded-[9999px] shrink-0" data-name="Button">
+    <div
+      className="content-stretch flex flex-col items-start p-[8px] relative rounded-[9999px] shrink-0"
+      data-name="Button"
+      data-settings-gear
+    >
       <Svg />
     </div>
   );

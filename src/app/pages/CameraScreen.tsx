@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import CameraCaptureScreenEmma from '../../imports/CameraCaptureScreenEmma';
 import { useState } from 'react';
-import svgPaths from '../../imports/svg-xcxhhmzk87';
+import SettingsGearButton from '../components/SettingsGearButton';
 
 export default function CameraScreen() {
   const navigate = useNavigate();
@@ -38,21 +38,7 @@ export default function CameraScreen() {
     >
       <div className="relative h-screen w-full max-w-[430px] overflow-hidden">
         <CameraCaptureScreenEmma />
-        <button
-          type="button"
-          aria-label="Open settings"
-          onClick={() => navigate('/settings')}
-          className="absolute right-[20px] top-[20px] z-[30] flex size-[48px] items-center justify-center rounded-[9999px] bg-white/90 shadow-[0px_4px_10px_rgba(0,0,0,0.18)]"
-        >
-          <div className="relative size-[24px] shrink-0">
-            <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
-              <g>
-                <path d={svgPaths.p1b1900c0} stroke="#64748B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                <path d={svgPaths.p22be0800} stroke="#64748B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-              </g>
-            </svg>
-          </div>
-        </button>
+        <SettingsGearButton className="absolute right-[20px] top-[20px] z-[30] size-[48px] bg-white/90 shadow-[0px_4px_10px_rgba(0,0,0,0.18)]" />
       </div>
     </div>
   );

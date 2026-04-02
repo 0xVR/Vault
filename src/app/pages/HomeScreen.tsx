@@ -43,7 +43,7 @@ export default function HomeScreen() {
           navigate('/image/1');
         }
         // Check for settings icon
-        else if (target.closest('[data-name=\"Button2\"]')) {
+        else if (target.closest('[data-settings-gear]')) {
           navigate('/settings');
         }
       }}
@@ -107,12 +107,6 @@ export default function HomeScreen() {
       <FigmaWrapper>
         <HomeDashboardMichelle />
       </FigmaWrapper>
-      <button
-        type="button"
-        aria-label="Open settings"
-        onClick={() => navigate('/settings')}
-        className="absolute right-[12px] top-[12px] z-[20] size-[48px] rounded-[9999px]"
-      />
       <BottomNav />
     </div>
   );

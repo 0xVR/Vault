@@ -198,7 +198,7 @@ function Container12() {
 
 function Container11() {
   return (
-    <div className="relative rounded-[9999px] shrink-0 size-[40px]" data-name="Container">
+    <div className="relative rounded-[9999px] shrink-0 size-[40px]" data-name="Container" data-cleanup-back>
       <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
         <Container12 />
       </div>
@@ -241,7 +241,7 @@ function Svg() {
 
 function Button2() {
   return (
-    <div className="relative rounded-[9999px] shrink-0" data-name="Button">
+    <div className="relative rounded-[9999px] shrink-0" data-name="Button" data-settings-gear>
       <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start p-[8px] relative">
         <Svg />
       </div>

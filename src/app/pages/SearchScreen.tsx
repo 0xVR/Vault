@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router';
 import svgPaths from '../../imports/svg-xcxhhmzk87';
 import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';
+import SettingsGearButton from '../components/SettingsGearButton';
 import { searchImages } from '../data/mockImages';
 
 export default function SearchScreen() {
@@ -42,23 +43,8 @@ export default function SearchScreen() {
     <div className="flex min-h-screen w-full flex-col bg-[#f8fafc]">
       <Header
         title="Search"
-        rightAction={
-          <button
-            type="button"
-            onClick={() => navigate('/settings')}
-            aria-label="Open settings"
-            className="flex size-[40px] shrink-0 items-center justify-center rounded-[9999px]"
-          >
-            <div className="relative size-[24px] shrink-0">
-              <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
-                <g>
-                  <path d={svgPaths.p1b1900c0} stroke="#64748B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                  <path d={svgPaths.p22be0800} stroke="#64748B" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                </g>
-              </svg>
-            </div>
-          </button>
-        }
+        className="relative z-10"
+        rightAction={<SettingsGearButton />}
       />
 
       <div className="w-full bg-white">

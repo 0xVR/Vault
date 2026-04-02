@@ -11,13 +11,10 @@ export default function CleanupScreen() {
       className="relative min-h-screen w-full overflow-y-auto pb-[120px] bg-[#f8fafc]"
       onClick={(e) => {
         const target = e.target as HTMLElement;
-        
-        // Settings button
-        if (target.closest('[data-name="Button2"]')) {
+
+        if (target.closest('[data-settings-gear]')) {
           navigate('/settings');
-        }
-        // Back button
-        else if (target.closest('[data-name="Container11"]')) {
+        } else if (target.closest('[data-cleanup-back]')) {
           navigate('/home');
         }
       }}
@@ -25,12 +22,6 @@ export default function CleanupScreen() {
       <FigmaWrapper>
         <CleanupHadi />
       </FigmaWrapper>
-      <button
-        type="button"
-        aria-label="Open settings"
-        onClick={() => navigate('/settings')}
-        className="absolute right-[12px] top-[12px] z-[20] size-[48px] rounded-[9999px]"
-      />
       <BottomNav />
     </div>
   );
