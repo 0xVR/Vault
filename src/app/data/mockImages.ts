@@ -158,13 +158,81 @@ export function getImageById(id: string): VaultImage | undefined {
   return mockImages.find((img) => img.id === id);
 }
 
-export function searchImages(query: string): VaultImage[] {
-  const lowerQuery = query.toLowerCase();
-  return mockImages.filter(
-    (img) =>
-      img.title.toLowerCase().includes(lowerQuery) ||
-      img.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)) ||
-      img.extractedText.toLowerCase().includes(lowerQuery) ||
-      img.aiContext.toLowerCase().includes(lowerQuery),
+/** Search page tab filters; same catalog as Vaults (`mockImages`). */
+export type SearchTabFilter = 'All' | 'Images' | 'Schedules' | 'Stops';
+
+/**
+ * Vaults page chips (menus / schedules / events / whiteboards) use `category` only.
+ * This is the single helper so counts stay aligned with that model.
+ */
+export function getVaultCatalogSlices(items: VaultImage[]) {
+  return {
+    all: items,
+    menus: items.filter((img) => img.category === 'menu'),
+    schedules: items.filter((img) => img.category === 'schedule'),
+    events: items.filter((img) => img.category === 'event'),
+    whiteboards: items.filter((img) => img.category === 'whiteboard'),
+  } as const;
+}
+
+/**
+ * Search tab rules (same `items` array as Vaults):
+ * - **All** — full catalog (same as Vault “All”).
+ * - **Schedules** — `category === 'schedule'` (same rows as Vault “Schedules” chip).
+ * - **Images** — everything that is not a schedule capture: menus + events + whiteboards + job
+ *   (`category !== 'schedule'`). Intentionally different from **All** so schedule-heavy items
+ *   live under Schedules; **Images** stays different from **All**.
+ * - **Stops** — transit / bus / metro signals (Search-only slice; no Vault chip equivalent).
+ */
+export function filterVaultByTab(items: VaultImage[], tab: SearchTabFilter): VaultImage[] {
+  switch (tab) {
+    case 'All':
+      return items;
+    case 'Images':
+      return items.filter((img) => img.category !== 'schedule');
+    case 'Schedules':
+      return items.filter((img) => img.category === 'schedule');
+    case 'Stops':
+      return items.filter((img) => {
+        const hay = [
+          img.title,
+          img.extractedText,
+          img.aiContext,
+          ...img.tags,
+        ]
+          .join(' ')
+          .toLowerCase();
+        return hay.includes('transit') || hay.includes('bus ') || hay.includes('metro');
+      });
+    default:
+      return items;
+  }
+}
+
+/** Pre-tab counts for Search labels; uses the same `filterVaultByTab` as the grid. */
+export function getSearchTabCounts(items: VaultImage[]): Record<SearchTabFilter, number> {
+  return {
+    All: filterVaultByTab(items, 'All').length,
+    Images: filterVaultByTab(items, 'Images').length,
+    Schedules: filterVaultByTab(items, 'Schedules').length,
+    Stops: filterVaultByTab(items, 'Stops').length,
+  };
+}
+
+/** True if `query` matches any searchable field (empty query matches all). */
+export function matchesVaultSearch(img: VaultImage, query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+  return (
+    img.title.toLowerCase().includes(q) ||
+    img.tags.some((tag) => tag.toLowerCase().includes(q)) ||
+    img.extractedText.toLowerCase().includes(q) ||
+    img.aiContext.toLowerCase().includes(q) ||
+    img.category.toLowerCase().includes(q) ||
+    (img.detectedDate?.toLowerCase().includes(q) ?? false)
   );
+}
+
+export function searchImages(query: string): VaultImage[] {
+  return mockImages.filter((img) => matchesVaultSearch(img, query));
 }

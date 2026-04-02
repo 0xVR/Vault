@@ -1,21 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
+import VaultImageCard from '../components/VaultImageCard';
 import BottomNav from '../components/BottomNav';
 import Header from '../components/Header';
 import SettingsGearButton from '../components/SettingsGearButton';
-import { mockImages } from '../data/mockImages';
+import { getVaultCatalogSlices } from '../data/mockImages';
+import { useVaultCatalog } from '../hooks/useVaultCatalog';
 
 export default function VaultsScreen() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { items } = useVaultCatalog();
 
-  const vaults = {
-    all: mockImages,
-    menus: mockImages.filter((img) => img.category === 'menu'),
-    schedules: mockImages.filter((img) => img.category === 'schedule'),
-    events: mockImages.filter((img) => img.category === 'event'),
-    whiteboards: mockImages.filter((img) => img.category === 'whiteboard'),
-  };
+  const vaults = useMemo(() => getVaultCatalogSlices(items), [items]);
 
   const requestedVault = searchParams.get('vault');
   const selectedVaultKey = requestedVault && requestedVault in vaults ? requestedVault : 'all';
@@ -34,13 +31,13 @@ export default function VaultsScreen() {
     }
   };
 
-  const currentImages = vaults[selectedVault as keyof typeof vaults] || mockImages;
+  const currentImages = vaults[selectedVault as keyof typeof vaults] || items;
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-[#f8fafc]">
       <Header
         title="Vaults"
-        showBack={false}
+        onBack={() => navigate('/home')}
         className="relative z-10"
         rightAction={<SettingsGearButton />}
       />
@@ -73,23 +70,7 @@ export default function VaultsScreen() {
       <div className="flex-1 overflow-y-auto pb-[120px]">
         <div className="mx-auto grid max-w-[430px] grid-cols-2 gap-[16px] p-[16px]">
           {currentImages.map((image) => (
-            <button
-              key={image.id}
-              type="button"
-              onClick={() => navigate(`/image/${image.id}`)}
-              className="overflow-hidden rounded-[12px] bg-white text-left shadow-sm"
-            >
-              <div className="relative aspect-square">
-                <img src={image.thumbnail} alt={image.title} className="absolute inset-0 h-full w-full object-cover" />
-              </div>
-              <div className="p-[12px]">
-                <h3 className="mb-[4px] truncate font-['Inter:Bold',sans-serif] text-[14px] font-bold text-[#0f172a]">
-                  {image.title}
-                </h3>
-                <p className="truncate font-['Inter:Regular',sans-serif] text-[12px] text-[#64748b]">{image.tags[0]}</p>
-                <p className="mt-[4px] font-['Inter:Regular',sans-serif] text-[10px] text-[#94a3b8]">{image.date}</p>
-              </div>
-            </button>
+            <VaultImageCard key={image.id} image={image} onOpen={() => navigate(`/image/${image.id}`)} />
           ))}
         </div>
       </div>

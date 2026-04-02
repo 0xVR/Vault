@@ -5,12 +5,22 @@ import svgPaths from '../../imports/svg-xcxhhmzk87';
 interface HeaderProps {
   title: string;
   showBack?: boolean;
+  /** When set, called instead of browser history back (e.g. `() => navigate('/home')`). */
+  onBack?: () => void;
   rightAction?: ReactNode;
   className?: string;
 }
 
-export default function Header({ title, showBack = true, rightAction, className = '' }: HeaderProps) {
+export default function Header({ title, showBack = true, onBack, rightAction, className = '' }: HeaderProps) {
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (onBack) {
+      onBack();
+    } else {
+      navigate(-1);
+    }
+  };
 
   return (
     <div className={`relative w-full border-b border-[rgba(18,109,98,0.1)] bg-white ${className}`}>
@@ -18,7 +28,7 @@ export default function Header({ title, showBack = true, rightAction, className 
         {showBack ? (
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             aria-label="Go back"
             className="flex size-[40px] shrink-0 items-center justify-center rounded-[9999px]"
           >
