@@ -63,15 +63,28 @@ export default function AnnotateScreen() {
 
             <div className="mb-[12px] flex flex-wrap gap-[8px]">
               {tags.map((tag) => (
-                <button
+                <div
                   key={tag}
-                  type="button"
-                  onClick={() => handleRemoveTag(tag)}
-                  className="flex items-center gap-[8px] rounded-[25px] bg-[#98a6a4] px-[16px] py-[8px]"
+                  tabIndex={0}
+                  role="group"
+                  aria-label={`Tag: ${tag}`}
+                  className="flex items-center gap-[8px] rounded-[25px] bg-[#98a6a4] px-[16px] py-[8px] cursor-default"
+                  // Clicking the tag body should not remove it; allow focus only.
+                  onClick={(e) => e.currentTarget.focus()}
                 >
                   <span className="text-center font-['Inter:Medium',sans-serif] text-[14px] font-medium text-white">{tag}</span>
-                  <span className="text-[12px] text-white">&times;</span>
-                </button>
+                  <button
+                    type="button"
+                    aria-label={`Remove tag ${tag}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveTag(tag);
+                    }}
+                    className="cursor-pointer text-[12px] text-white"
+                  >
+                    &times;
+                  </button>
+                </div>
               ))}
             </div>
 
