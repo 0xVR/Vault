@@ -9,6 +9,8 @@ import SettingsScreen from "./pages/SettingsScreen";
 import NotificationSetupScreen from "./pages/NotificationSetupScreen";
 import AnnotateScreen from "./pages/AnnotateScreen";
 
+const basename = "/Vault/";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -46,4 +48,4 @@ export const router = createBrowserRouter([
     path: "/annotate/:id",
     Component: AnnotateScreen,
   },
-]);
+], { basename });
