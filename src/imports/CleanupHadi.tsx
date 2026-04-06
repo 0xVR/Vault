@@ -335,23 +335,28 @@ function Heading2() {
   );
 }
 
-function Container16() {
+function Container16({ onClearAll }: { onClearAll?: () => void }) {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Container">
+    <button
+      type="button"
+      onClick={onClearAll}
+      className="content-stretch flex flex-col items-start relative shrink-0"
+      data-name="Container"
+    >
       <div className="flex flex-col font-['Inter:Medium',sans-serif] h-[20px] justify-center leading-[0] not-italic relative shrink-0 text-[#126d62] text-[14px] w-[52.8px]">
         <p className="leading-[20px]">Clear All</p>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Container15() {
+function Container15({ onClearAll }: { onClearAll?: () => void }) {
   return (
     <div className="relative shrink-0 w-full" data-name="Container">
       <div className="flex flex-row items-center size-full">
         <div className="content-stretch flex items-center justify-between px-[4px] relative w-full">
           <Heading2 />
-          <Container16 />
+          <Container16 onClearAll={onClearAll} />
         </div>
       </div>
     </div>
@@ -524,53 +529,63 @@ function ScreenshotPreviewContainer() {
   );
 }
 
-function Button3() {
+function Button3({ onDismiss }: { onDismiss?: () => void }) {
   return (
-    <div className="bg-[#f1f5f9] col-1 content-stretch flex flex-col items-center justify-center justify-self-start px-[56.64px] py-[12px] relative rounded-[16px] row-1 self-start shrink-0" data-name="Button">
+    <button
+      type="button"
+      onClick={onDismiss}
+      className="bg-[#f1f5f9] col-1 content-stretch flex flex-col items-center justify-center justify-self-start px-[56.64px] py-[12px] relative rounded-[16px] row-1 self-start shrink-0"
+      data-name="Button"
+    >
       <div className="flex flex-col font-['Inter:Semi_Bold',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[#334155] text-[16px] text-center w-[38.72px]">
         <p className="leading-[24px]">Keep</p>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Button4() {
+function Button4({ onDismiss }: { onDismiss?: () => void }) {
   return (
-    <div className="bg-[#ef4444] col-2 content-stretch flex flex-col items-center justify-center justify-self-start pl-[51.95px] pr-[51.96px] py-[12px] relative rounded-[16px] row-1 self-start shrink-0" data-name="Button">
+    <button
+      type="button"
+      onClick={onDismiss}
+      className="bg-[#ef4444] col-2 content-stretch flex flex-col items-center justify-center justify-self-start pl-[51.95px] pr-[51.96px] py-[12px] relative rounded-[16px] row-1 self-start shrink-0"
+      data-name="Button"
+    >
       <div className="absolute bg-[rgba(255,255,255,0)] inset-0 rounded-[16px] shadow-[0px_10px_15px_-3px_rgba(239,68,68,0.2),0px_4px_6px_-4px_rgba(239,68,68,0.2)]" data-name="Button:shadow" />
       <div className="flex flex-col font-['Inter:Semi_Bold',sans-serif] h-[24px] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-center text-white w-[48.09px]">
         <p className="leading-[24px]">Delete</p>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Actions() {
+function Actions({ onDismiss }: { onDismiss?: () => void }) {
   return (
     <div className="gap-x-[12px] gap-y-[12px] grid grid-cols-[repeat(2,minmax(0,1fr))] grid-rows-[_48px] pt-[4px] relative shrink-0 w-full" data-name="Actions">
-      <Button3 />
-      <Button4 />
+      <Button3 onDismiss={onDismiss} />
+      <Button4 onDismiss={onDismiss} />
     </div>
   );
 }
 
-function Container17() {
+function Container17({ onDismiss }: { onDismiss?: () => void }) {
   return (
     <div className="relative shrink-0 w-full" data-name="Container">
       <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[16px] items-start p-[20px] relative w-full">
         <Container18 />
         <ScreenshotPreviewContainer />
-        <Actions />
+        <Actions onDismiss={onDismiss} />
       </div>
     </div>
   );
 }
 
-function ArticleSuggestionCardExpiredTicket() {
+function ArticleSuggestionCardExpiredTicket({ onDismiss }: { onDismiss?: () => void }) {
   return (
     <div className="bg-white relative rounded-[24px] shrink-0 w-full" data-name="Article - Suggestion Card: Expired Ticket">
       <div className="content-stretch flex flex-col items-start overflow-clip p-px relative rounded-[inherit] w-full">
-        <Container17 />
+        <Container17 onDismiss={onDismiss} />
       </div>
       <div aria-hidden="true" className="absolute border border-[#f1f5f9] border-solid inset-0 pointer-events-none rounded-[24px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)]" />
     </div>
@@ -673,12 +688,22 @@ function ArticleSuggestionCardBlurDuplicateMock() {
   );
 }
 
-function SectionSuggestionsList() {
+function SectionSuggestionsList({
+  showExpiredSuggestion = true,
+  showDuplicateSuggestion = true,
+  onDismissExpiredSuggestion,
+  onClearAll,
+}: {
+  showExpiredSuggestion?: boolean;
+  showDuplicateSuggestion?: boolean;
+  onDismissExpiredSuggestion?: () => void;
+  onClearAll?: () => void;
+}) {
   return (
     <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full" data-name="Section - SuggestionsList">
-      <Container15 />
-      <ArticleSuggestionCardExpiredTicket />
-      <ArticleSuggestionCardBlurDuplicateMock />
+      <Container15 onClearAll={onClearAll} />
+      {showExpiredSuggestion ? <ArticleSuggestionCardExpiredTicket onDismiss={onDismissExpiredSuggestion} /> : null}
+      {showDuplicateSuggestion ? <ArticleSuggestionCardBlurDuplicateMock /> : null}
     </div>
   );
 }
@@ -694,11 +719,31 @@ function Main() {
   );
 }
 
-export default function CleanupHadi() {
+export default function CleanupHadi({
+  showExpiredSuggestion = true,
+  showDuplicateSuggestion = true,
+  onDismissExpiredSuggestion,
+  onClearAll,
+}: {
+  showExpiredSuggestion?: boolean;
+  showDuplicateSuggestion?: boolean;
+  onDismissExpiredSuggestion?: () => void;
+  onClearAll?: () => void;
+}) {
   return (
     <div className="bg-[#f8fafc] content-stretch flex flex-col isolate items-start relative size-full" data-name="Cleanup - Hadi">
       <Header />
-      <Main />
+      <div className="max-w-[448px] relative shrink-0 w-full z-[1]" data-name="Main">
+        <div className="content-stretch flex flex-col gap-[24px] items-start max-w-[inherit] p-[16px] relative w-full">
+          <SectionStatusOverview />
+          <SectionSuggestionsList
+            showExpiredSuggestion={showExpiredSuggestion}
+            showDuplicateSuggestion={showDuplicateSuggestion}
+            onDismissExpiredSuggestion={onDismissExpiredSuggestion}
+            onClearAll={onClearAll}
+          />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import CleanupHadi from '../../imports/CleanupHadi';
 import BottomNav from '../components/BottomNav';
@@ -5,6 +6,8 @@ import FigmaWrapper from '../components/FigmaWrapper';
 
 export default function CleanupScreen() {
   const navigate = useNavigate();
+  const [showExpiredSuggestion, setShowExpiredSuggestion] = useState(true);
+  const [showDuplicateSuggestion, setShowDuplicateSuggestion] = useState(true);
 
   return (
     <div 
@@ -20,7 +23,15 @@ export default function CleanupScreen() {
       }}
     >
       <FigmaWrapper>
-        <CleanupHadi />
+        <CleanupHadi
+          showExpiredSuggestion={showExpiredSuggestion}
+          showDuplicateSuggestion={showDuplicateSuggestion}
+          onDismissExpiredSuggestion={() => setShowExpiredSuggestion(false)}
+          onClearAll={() => {
+            setShowExpiredSuggestion(false);
+            setShowDuplicateSuggestion(false);
+          }}
+        />
       </FigmaWrapper>
       <BottomNav />
     </div>
