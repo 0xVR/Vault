@@ -10,6 +10,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  base: '/Vault/',
   resolve: {
     alias: [
       {
